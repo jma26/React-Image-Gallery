@@ -8,7 +8,7 @@ function Router() {
     <>
       <Route
         exact
-        path='/login'
+        path='/'
         component={Login}
       />
       <Route
