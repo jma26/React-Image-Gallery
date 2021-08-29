@@ -5,6 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 
+import FormControls from '../form/formControls';
 import './signup.css';
 
 const useStyles = makeStyles({
@@ -45,6 +46,10 @@ const useStyles = makeStyles({
       backgroundColor: '#0095F6',
       margin: '1em 0 0.5em',
       width: '100%'
+    },
+    '& .MuiButton-contained.Mui-disabled': {
+      backgroundColor: '#B2DFFC',
+      color: '#FFFFFF'
     }
   },
   link: {
@@ -55,8 +60,14 @@ const useStyles = makeStyles({
   }
 });
 
+
 function Signup() {
   const classes = useStyles();
+  const { 
+    handleInputChange,
+    handleSubmit,
+    formIsValid,
+  } = FormControls();
   return (
     <>
     <Container maxWidth="md" className="signup">
@@ -74,38 +85,54 @@ function Signup() {
           <h1>Reactagram</h1>
           <p>Sign up to see photos and videos from your friends.</p>
           <hr />
-          <TextField
-            label="Email"
-            size="small"
-            variant="filled"
-          >
-          </TextField>
-          <TextField
-            label="Full Name"
-            size="small"
-            variant="filled"
-          >
-          </TextField>
-          <TextField
-            label="Username"
-            size="small"
-            variant="filled"
-          >
-          </TextField>
-          <TextField
-            label="Password"
-            size="small"
-            variant="filled"
-          >
-          </TextField>
-          <Button
-            variant="contained"
-            color="primary"
-            size="small"
-          >
-            Sign up
-          </Button>
-          <p>By signing up, you agree to our Terms, Data Policy and Cookies Policy.</p>
+          <form onSubmit={handleSubmit}>
+            <TextField
+              autoComplete="off"
+              label="Email"
+              name="email"
+              size="small"
+              variant="filled"
+              onChange={handleInputChange}
+            >
+            </TextField>
+            <TextField
+              autoComplete="off"
+              label="Full Name"
+              name="fullname"
+              size="small"
+              variant="filled"
+              onChange={handleInputChange}
+            >
+            </TextField>
+            <TextField
+              autoComplete="off"
+              label="Username"
+              name="username"
+              size="small"
+              variant="filled"
+              onChange={handleInputChange}
+            >
+            </TextField>
+            <TextField
+              autoComplete="off"
+              label="Password"
+              name="password"
+              size="small"
+              variant="filled"
+              onChange={handleInputChange}
+            >
+            </TextField>
+            <Button
+              variant="contained"
+              color="primary"
+              size="small"
+              type="submit"
+              disabled={!formIsValid()}
+            >
+              Sign up
+            </Button>
+            <p>By signing up, you agree to our Terms, Data Policy and Cookies Policy.</p>
+          </form>
         </Grid>
         <Grid
           item
