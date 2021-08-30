@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import EmailAndPassword from '../../firebase/authentication/emailAndPassword';
 
 const initialFormValues = {
   email: '',
@@ -10,6 +11,8 @@ const initialFormValues = {
 export default function Formcontrols() {
   const [ formValues, setFormValues ] = useState(initialFormValues);
   const [ formErrors, setErrors ] = useState({});
+
+  const { registerWithEmailAndPassword } = EmailAndPassword();
 
   const handleInputChange = function(event) {
     const { name, value } = event.target;
@@ -67,9 +70,10 @@ export default function Formcontrols() {
 
   }
 
-  const handleSubmit = function(event) {
+  const handleSubmit = async function(event) {
     event.preventDefault();
     if (formIsValid()) {
+      await registerWithEmailAndPassword(formValues);
       console.log('Form is valid!');
     }
   }
