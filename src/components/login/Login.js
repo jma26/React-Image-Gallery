@@ -5,6 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 
+import FormControls from '../form/formControls';
 import './login.css';
 
 const useStyles = makeStyles({
@@ -46,6 +47,10 @@ const useStyles = makeStyles({
       marginTop: '1em',
       marginBottom: '2em',
       width: '100%'
+    },
+    '& .MuiButton-contained.Mui-disabled': {
+      backgroundColor: '#B2DFFC',
+      color: '#FFFFFF'
     }
   },
   link: {
@@ -58,10 +63,15 @@ const useStyles = makeStyles({
 
 function Login() {
   const classes = useStyles();
+  const { 
+    handleInputChange,
+    handleLogin,
+    formIsValid,
+  } = FormControls();
   return (
     <>
     <Container maxWidth="md" className="login">
-      <form className="login__form">
+      <form className="login__form" onSubmit={handleLogin}>
         <Grid 
           container
           direction="column"
@@ -76,20 +86,26 @@ function Login() {
             <h1>Reactagram</h1>
             <TextField
               label="Email"
+              name="email"
               size="small"
               variant="filled"
+              onChange={handleInputChange}
             >
             </TextField>
             <TextField
               label="Password"
+              name="password"
               size="small"
               variant="filled"
+              onChange={handleInputChange}
             >
             </TextField>
             <Button
               variant="contained"
               color="primary"
               size="small"
+              type="submit"
+              disabled={!formIsValid()}
             >
               Log In
             </Button>

@@ -3,16 +3,17 @@ import EmailAndPassword from '../../firebase/authentication/emailAndPassword';
 
 const initialFormValues = {
   email: '',
-  fullname: '',
-  username: '',
-  password: '',
+  password: ''
 }
 
 export default function Formcontrols() {
   const [ formValues, setFormValues ] = useState(initialFormValues);
   const [ formErrors, setErrors ] = useState({});
 
-  const { registerWithEmailAndPassword } = EmailAndPassword();
+  const { 
+    registerWithEmailAndPassword,
+    signInWithEmailAndPassword
+  } = EmailAndPassword();
 
   const handleInputChange = function(event) {
     const { name, value } = event.target;
@@ -28,18 +29,11 @@ export default function Formcontrols() {
   }
 
   const formIsValid = function() {
-    const isValid =
-      formValues.email &&
-      formValues.fullname &&
-      formValues.username &&
-      formValues.password &&
-      Object.values(formErrors).every(
-        function(value) {
-          return value === ''
-        }
-      )
-
-    return isValid;
+    let isValid = true;
+    if (Object.values(formValues).every(Boolean) && Object.values(formErrors).every(function(value) { return value === '' })) {
+      return isValid;
+    }
+    return !isValid;
   }
 
   const validateFormValue = function() {
@@ -70,7 +64,7 @@ export default function Formcontrols() {
 
   }
 
-  const handleSubmit = async function(event) {
+  const handleSignup = async function(event) {
     event.preventDefault();
     if (formIsValid()) {
       await registerWithEmailAndPassword(formValues);
@@ -78,9 +72,18 @@ export default function Formcontrols() {
     }
   }
 
+  const handleLogin = async function(event) {
+    event.preventDefault();
+    if (formIsValid()) {
+      await signInWithEmailAndPassword(formValues);
+      console.log('Form is valid!');
+    }
+  }
+
   return {
     handleInputChange,
-    handleSubmit,
+    handleSignup,
+    handleLogin,
     formIsValid,
     formErrors
   };

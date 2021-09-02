@@ -4,16 +4,17 @@ export default function authentication() {
 
   const signInWithEmailAndPassword = async function(email, password) {
     try {
-      await auth.signInWithEmailPass(email, password);
+      let res = await auth.signInWithEmailPass(email, password);
+      let user = res.user;
+      console.log(user);
     } catch (err) {
       console.error(err);
-      alert(err.message);
     }
   };
 
   const registerWithEmailAndPassword = async function(registeree) {
     try {
-      const res = await auth.createUserWithEmailAndPassword(registeree['email'], registeree['password']);
+      let res = await auth.createUserWithEmailAndPassword(registeree['email'], registeree['password']);
       const user = res.user;
       await db.collection('users').add({
         ...registeree,

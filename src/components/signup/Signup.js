@@ -65,7 +65,7 @@ function Signup() {
   const classes = useStyles();
   const { 
     handleInputChange,
-    handleSubmit,
+    handleSignup,
     formIsValid,
   } = FormControls();
   return (
@@ -85,7 +85,7 @@ function Signup() {
           <h1>Reactagram</h1>
           <p>Sign up to see photos and videos from your friends.</p>
           <hr />
-          <form onSubmit={handleSubmit}>
+          <form className="signup__form" onSubmit={handleSignup}>
             <TextField
               autoComplete="off"
               label="Email"
