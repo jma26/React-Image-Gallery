@@ -61,7 +61,8 @@ const useStyles = makeStyles({
 });
 
 
-function Signup() {
+function Signup(props) {
+  const history = props.history;
   const classes = useStyles();
   const { 
     handleInputChange,
@@ -85,7 +86,7 @@ function Signup() {
           <h1>Reactagram</h1>
           <p>Sign up to see photos and videos from your friends.</p>
           <hr />
-          <form className="signup__form" onSubmit={handleSignup}>
+          <form className="signup__form" onSubmit={handleSignup(history)}>
             <TextField
               autoComplete="off"
               label="Email"

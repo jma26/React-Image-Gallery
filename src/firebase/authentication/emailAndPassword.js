@@ -2,26 +2,27 @@ import { auth,  db } from '../firebase';
 
 export default function authentication() {
 
-  const signInWithEmailAndPassword = async function(email, password) {
+  const signInWithEmailAndPassword = async function(form) {
     try {
-      let res = await auth.signInWithEmailPass(email, password);
-      let user = res.user;
-      console.log(user);
+      let userCredential = await auth.signInWithEmailAndPassword(form['email'], form['password']);
+      let user = userCredential.user;
+      return user;
     } catch (err) {
-      console.error(err);
+      return err;
     }
   };
 
-  const registerWithEmailAndPassword = async function(registeree) {
+  const registerWithEmailAndPassword = async function(form) {
     try {
-      let res = await auth.createUserWithEmailAndPassword(registeree['email'], registeree['password']);
-      const user = res.user;
+      let userCredential = await auth.createUserWithEmailAndPassword(form['email'], form['password']);
+      let user = userCredential.user;
       await db.collection('users').add({
-        ...registeree,
+        ...form,
         uid: user.uid
       });
+      return user;
     } catch (err) {
-      console.error(err);
+      return err;
     }
   };
 

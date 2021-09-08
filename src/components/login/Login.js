@@ -61,7 +61,8 @@ const useStyles = makeStyles({
   }
 });
 
-function Login() {
+function Login(props) {
+  const history = props.history;
   const classes = useStyles();
   const { 
     handleInputChange,
@@ -71,7 +72,7 @@ function Login() {
   return (
     <>
     <Container maxWidth="md" className="login">
-      <form className="login__form" onSubmit={handleLogin}>
+      <form className="login__form" onSubmit={handleLogin(history)}>
         <Grid 
           container
           direction="column"

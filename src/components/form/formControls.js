@@ -64,19 +64,29 @@ export default function Formcontrols() {
 
   }
 
-  const handleSignup = async function(event) {
-    event.preventDefault();
-    if (formIsValid()) {
-      await registerWithEmailAndPassword(formValues);
-      console.log('Form is valid!');
+  const handleSignup = function(history) {
+    return async function(event) {
+      event.preventDefault();
+      if (formIsValid()) {
+        console.log('Form is valid!');
+        let user = await registerWithEmailAndPassword(formValues);
+        if (user.uid) {
+          history.push('/home');
+        }
+      }
     }
   }
 
-  const handleLogin = async function(event) {
-    event.preventDefault();
-    if (formIsValid()) {
-      await signInWithEmailAndPassword(formValues);
-      console.log('Form is valid!');
+  const handleLogin = function(history) {
+    return async function(event) {
+      event.preventDefault();
+      if (formIsValid()) {
+        console.log('Form is valid!');
+        let user = await signInWithEmailAndPassword(formValues);
+        if (user.uid) {
+          history.push('/home');
+        }
+      }
     }
   }
 
