@@ -5,6 +5,9 @@ import Grid from '@material-ui/core/Grid';
 import Header from '../header/Header';
 import getUnsplashPhotos from '../../unsplash/getUnsplashPhotos';
 import Images from '../images/images';
+import Profile from '../profile/Profile';
+
+import { Switch, Route, useParams } from 'react-router-dom';
 
 const useStyles = makeStyles({
   root: {
@@ -28,17 +31,22 @@ function Home() {
   }, [])
   return (
     <>
-    <Header />
-    <Container maxWidth="lg" className="home">
-      <Grid
-        container
-        direction="row"
-        spacing={4}
-        className={classes.root}
-      >
-        <Images randomPhotos={randomPhotos}/>
-      </Grid>
-    </Container>
+      <Header />
+      <Container maxWidth="lg" className="home">
+        <Grid
+          container
+          direction="row"
+          spacing={4}
+          className={classes.root}
+        >
+          <Switch>
+            <Route exact path="/">
+              <Images randomPhotos={randomPhotos}/>
+            </Route>
+            <Route exact path="/:username" component={Profile} />
+          </Switch>
+        </Grid>
+      </Container>
     </>
   );
 }
