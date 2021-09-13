@@ -2,9 +2,7 @@ import { Switch, Route } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import Login from '../components/login/Login';
 import Signup from '../components/signup/Signup';
-import Profile from '../components/profile/Profile';
-import Home from '../components/home/Home';
-import Images from '../components/images/images';
+import HomeContainer from '../components/home/HomeContainer';
 
 function Router() {
   return (
@@ -22,7 +20,7 @@ function Router() {
         />
         <Route
           path="/"
-          component={Home}
+          component={HomeContainer}
         />
       </Switch>
     </>

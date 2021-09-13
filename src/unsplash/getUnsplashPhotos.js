@@ -12,7 +12,18 @@ export default function getUnsplashPhotos() {
     }
   }
 
+  const getUserPhotos = async function(username) {
+    try {
+      let unsplashPhotos = await unsplash.users.getPhotos(username);
+      let userPhotos = unsplashPhotos.response.results;
+      return userPhotos;
+    } catch (err) {
+      return err;
+    }
+  }
+
   return {
-    getRandomPhotos
+    getRandomPhotos,
+    getUserPhotos
   }
 }

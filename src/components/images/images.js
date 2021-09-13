@@ -5,7 +5,6 @@ import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles({
   card: {
@@ -31,7 +30,7 @@ const useStyles = makeStyles({
 })
 
 function Images(props) {
-  const images = props.randomPhotos;
+  const images = props.photos;
   const classes = useStyles();
 
   return (
