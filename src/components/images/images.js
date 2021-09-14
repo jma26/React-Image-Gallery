@@ -6,7 +6,6 @@ import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import { CenterFocusStrong } from '@material-ui/icons';
 
 const useStyles = makeStyles({
   card: {
@@ -108,7 +107,6 @@ function Images(props) {
                     <NavLink to={`/${image.user.username}`}>{image.user.username}</NavLink>
                     {image.alt_description}
                   </Typography>
-                  
                 </CardContent>
               </Card>
             </Grid>

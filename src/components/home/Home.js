@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import getUnsplashPhotos from '../../unsplash/getUnsplashPhotos';
-import Images from '../images/images';
+import Images from '../images/Images';
 
 function Home() {
   const [randomPhotos, setRandomPhotos] = useState([]);

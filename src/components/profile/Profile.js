@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import ProfileHeader from './ProfileHeader';
 import getUnsplashPhotos from '../../unsplash/getUnsplashPhotos';
-import Images from '../images/images';
+import LoadingDots from '../Loading/LoadingDots';
+import Images from '../images/Images';
 
 function Profile() { 
   const [userPhotos, setPhotos] = useState([]);
@@ -29,7 +30,7 @@ function Profile() {
   }, [])
 
   if (isLoading) return (
-    <span>Loading</span>
+    <LoadingDots />
   ) 
 
   return (
