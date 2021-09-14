@@ -1,3 +1,4 @@
+import { FunctionsTwoTone } from '@material-ui/icons';
 import { unsplash } from './unsplash';
 
 export default function getUnsplashPhotos() {
@@ -12,11 +13,15 @@ export default function getUnsplashPhotos() {
     }
   }
 
-  const getUserPhotos = async function(username) {
+  const getUserProfilePhotos = async function(username) {
     try {
-      let unsplashPhotos = await unsplash.users.getPhotos(username);
-      let userPhotos = unsplashPhotos.response.results;
-      return userPhotos;
+      let userPhotos = await unsplash.users.getPhotos(username);
+      let userProfile = await unsplash.users.get(username);
+      console.log(userProfile);
+      return {
+        userPhotos: userPhotos.response.results,
+        userProfile: userProfile.response
+      }
     } catch (err) {
       return err;
     }
@@ -24,6 +29,6 @@ export default function getUnsplashPhotos() {
 
   return {
     getRandomPhotos,
-    getUserPhotos
+    getUserProfilePhotos
   }
 }

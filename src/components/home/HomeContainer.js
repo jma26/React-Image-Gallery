@@ -21,7 +21,6 @@ function HomeContainer() {
       <Container maxWidth="lg" className="home">
         <Grid
           container
-          direction="row"
           spacing={4}
           className={classes.root}
         >

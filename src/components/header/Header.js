@@ -26,7 +26,7 @@ function Header() {
           <IconButton
             aria-label="Home page"
             color="inherit"
-            onClick={() => window.location.replace('/home')}
+            onClick={() => window.location.replace('/')}
           >
             <InstagramIcon />
           </IconButton>
