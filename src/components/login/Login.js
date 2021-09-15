@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
@@ -5,6 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 
+import authStates from '../../firebase/authentication/authStates';
 import FormControls from '../form/formControls';
 import './login.css';
 
@@ -63,12 +65,30 @@ const useStyles = makeStyles({
 
 function Login(props) {
   const history = props.history;
+  const [isUserLoggedIn, handleUserStatus] = useState();
   const classes = useStyles();
   const { 
     handleInputChange,
     handleLogin,
     formIsValid,
   } = FormControls();
+  const {
+    checkAuthStatus
+  } = authStates();
+
+  useEffect(() => {
+    (async () => {
+      try {
+        let authStatus = await checkAuthStatus();
+        handleUserStatus(authStatus);
+        if (authStatus) {
+          history.push('/');
+        }
+      } catch (err) {
+        console.error(err.message);
+      }
+    })();
+  }, [isUserLoggedIn])
   return (
     <>
     <Container maxWidth="md" className="login">

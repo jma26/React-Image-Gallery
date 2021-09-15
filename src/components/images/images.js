@@ -89,7 +89,7 @@ function Images(props) {
                   <div className="overlay-likes">
                     <div className="likes--container">
                       <FavoriteIcon style={{fill: 'white'}} className="likes--icon" />
-                      <Typography component="body1" className="likes--int">{image.likes}</Typography>
+                      <Typography variant="body1" className="likes--int">{image.likes}</Typography>
                     </div>
                   </div>
                 </div>
