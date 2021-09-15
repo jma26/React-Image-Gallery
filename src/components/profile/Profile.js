@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import ProfileHeader from './ProfileHeader';
 import getUnsplashPhotos from '../../unsplash/getUnsplashPhotos';
-import LoadingDots from '../Loading/LoadingDots';
+import LoadingDots from '../loading/LoadingDots';
 import Images from '../images/Images';
 
 function Profile() { 

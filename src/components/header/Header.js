@@ -1,12 +1,15 @@
+import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Toolbar, IconButton, Typography } from '@material-ui/core';
-import InstagramIcon from '@material-ui/icons/Instagram';
+import Popover from '@material-ui/core/Popover';
+import MenuItem from '@material-ui/core/MenuItem';
 import HomeIcon from '@material-ui/icons/Home';
-import SearchIcon from '@material-ui/icons/Search';
-import ExploreIcon from '@material-ui/icons/Explore';
 import MessageIcon from '@material-ui/icons/Message';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import './header.css';
+
+import authStates from '../../firebase/authentication/authStates';
 
 const useStyles = makeStyles({
   root: {
@@ -18,7 +21,35 @@ const useStyles = makeStyles({
 });
 
 function Header() {
+  const [anchorEl, setAnchorEl] = useState(null);
   const classes = useStyles();
+  const history = useHistory();
+  const open = Boolean(anchorEl);
+
+  const {
+    authSignOut
+  } = authStates();
+
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLogOut = async () => {
+    try {
+      let isSignedOut = await authSignOut();
+      if (isSignedOut) {
+        console.log('Redirection to Login page');
+        history.push('/login');
+      }
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
+
   return (
     <>
       <AppBar className="header" position="static" color="transparent">
@@ -26,31 +57,47 @@ function Header() {
           <IconButton
             aria-label="Home page"
             color="inherit"
-            onClick={() => window.location.replace('/')}
+            onClick={() => history.push('/')}
           >
-            <InstagramIcon />
+            <Typography variant="h6">
+              Reactagram
+            </Typography>
           </IconButton>
-          <Typography variant="h6">
-            Reactagram
-          </Typography>
           <div className="header-middle mid-icons">
-            <IconButton aria-label="Home page" color="inherit">
+            <IconButton
+              aria-label="Home page"
+              color="inherit"
+              onClick={() => history.push('/')}
+            >
               <HomeIcon />
-            </IconButton>
-            <IconButton aria-label="Search function" color="inherit">
-              <SearchIcon />
-            </IconButton>
-            <IconButton aria-label="Explore Reactagram" color="inherit">
-              <ExploreIcon />
             </IconButton>
           </div>
           <div className="header-end account">
             <IconButton aria-label="User messages" color="inherit">
               <MessageIcon />
             </IconButton>
-            <IconButton aria-label="User account" color="inherit">
+            <IconButton
+              aria-label="User account"
+              color="inherit"
+              aria-controls="profile-menu"
+              onClick={handleMenu}
+            >
               <AccountCircleIcon />
             </IconButton>
+            <Popover
+              id="profile-menu"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              keepMounted
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left'
+              }}
+            >
+              <MenuItem>Profile</MenuItem>
+              <MenuItem onClick={handleLogOut}>Log Out</MenuItem>
+            </Popover>
           </div>
         </Toolbar>
       </AppBar>
