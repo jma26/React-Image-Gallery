@@ -1,4 +1,4 @@
-# Reactagram
+# React Image Gallery
 
 ## Technology
 * React (v17.0.2)
