@@ -161,7 +161,7 @@ function Signup(props) {
           sm={3}
           className={classes.link}
         >
-          <p>Have an account? <Link href="/">Log in</Link></p>
+          <p>Have an account? <Link href="/login">Log in</Link></p>
         </Grid>
 
       

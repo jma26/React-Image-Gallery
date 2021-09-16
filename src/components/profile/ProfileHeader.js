@@ -52,8 +52,6 @@ function ProfileHeader(props) {
           <Grid
             item
             sm={4}
-            spacing={4}
-            justifyContent="center"
           >
             <CardMedia
               component="img"

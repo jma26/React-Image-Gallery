@@ -18,7 +18,10 @@ export default function authentication() {
       let user = userCredential.user;
       await db.collection('users').add({
         ...form,
-        uid: user.uid
+        uid: user.uid,
+        total_photos: 0,
+        followers_count: 0,
+        following_count: 0
       });
       return user;
     } catch (err) {

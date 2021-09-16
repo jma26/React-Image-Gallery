@@ -10,6 +10,7 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import './header.css';
 
 import authStates from '../../firebase/authentication/authStates';
+import userProfile from '../../firebase/user/userProfile';
 
 const useStyles = makeStyles({
   root: {
@@ -25,6 +26,10 @@ function Header() {
   const classes = useStyles();
   const history = useHistory();
   const open = Boolean(anchorEl);
+
+  const {
+    getUserProfile
+  } = userProfile();
 
   const {
     authSignOut
@@ -50,6 +55,17 @@ function Header() {
     }
   }
 
+  const getProfile = async () => {
+    try {
+      let user = await getUserProfile();
+      history.push(`/${user.username}`, [
+        user
+      ])
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   return (
     <>
       <AppBar className="header" position="static" color="transparent">
@@ -63,15 +79,6 @@ function Header() {
               Reactagram
             </Typography>
           </IconButton>
-          <div className="header-middle mid-icons">
-            <IconButton
-              aria-label="Home page"
-              color="inherit"
-              onClick={() => history.push('/')}
-            >
-              <HomeIcon />
-            </IconButton>
-          </div>
           <div className="header-end account">
             <IconButton aria-label="User messages" color="inherit">
               <MessageIcon />
@@ -95,7 +102,7 @@ function Header() {
                 horizontal: 'left'
               }}
             >
-              <MenuItem>Profile</MenuItem>
+              <MenuItem onClick={getProfile}>Profile</MenuItem>
               <MenuItem onClick={handleLogOut}>Log Out</MenuItem>
             </Popover>
           </div>
