@@ -1,10 +1,13 @@
+import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
+import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import Modal from '@material-ui/core/Modal';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 
 const useStyles = makeStyles({
@@ -13,6 +16,9 @@ const useStyles = makeStyles({
     transition: 'box-shadow 0.2s',
     '&:hover': {
       boxShadow: '2px 8px 24px rgba(0, 0, 0, 0.15)',
+    },
+    '& .MuiCardActions-root': {
+      padding: '0'
     },
     '& .CardTopContainer': {
       position: 'relative'
@@ -62,36 +68,59 @@ const useStyles = makeStyles({
     '& a:hover, a:active, a:focus': {
       textDecoration: 'underline'
     }
+  },
+  modal: {
+    '& .MuiCard-root': {
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)'
+    },
+    '& .MuiCardMedia-img': {
+      objectFit: 'contain'
+    }
   }
 })
 
 function Images(props) {
+  const [modal, setModal] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
   const images = props.photos;
   const classes = useStyles();
+
+  const toggleModal = (image) => {
+    setModal(image);
+    setModalOpen(!modalOpen);
+  }
 
   return (
     <>
       {
-        images.map((image, i) => {
+        images.map((image, index) => {
           return (
             <Grid
-              key={i}
+              key={index}
               item
               sm={4}
             >
               <Card className={classes.card}>
                 <div className="CardTopContainer">
-                  <CardMedia
-                    component="img"
-                    image={`${image.urls.small}&fit=crop&min-w=300&min-h=600`}
-                    title={image.alt_description}
-                  />
-                  <div className="overlay-likes">
-                    <div className="likes--container">
-                      <FavoriteIcon style={{fill: 'white'}} className="likes--icon" />
-                      <Typography variant="body1" className="likes--int">{image.likes}</Typography>
+                  <CardActions
+                    onClick={() => toggleModal(image)}
+                    disableSpacing
+                  >
+                    <CardMedia
+                      component="img"
+                      image={`${image.urls.small}&fit=crop&min-w=300&min-h=600`}
+                      title={image.alt_description}
+                    />
+                    <div className="overlay-likes">
+                      <div className="likes--container">
+                        <FavoriteIcon style={{fill: 'white'}} className="likes--icon" />
+                        <Typography variant="body1" className="likes--int">{image.likes}</Typography>
+                      </div>
                     </div>
-                  </div>
+                  </CardActions>
                 </div>
                 <CardContent>
                    <Typography
@@ -112,6 +141,21 @@ function Images(props) {
             </Grid>
           )
         })
+      }
+      {
+        modalOpen ? <Modal
+          open={modalOpen}
+          onClose={toggleModal}
+          className={classes.modal}
+        >
+          <Card>
+            <CardMedia
+              component="img"
+              image={`${modal.urls.regular}`}
+              title={modal.alt_description}
+            />
+          </Card>
+        </Modal> : null
       }
     </>
   )
