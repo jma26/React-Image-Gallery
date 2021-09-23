@@ -82,6 +82,7 @@ function Login(props) {
         let authStatus = await checkAuthStatus();
         handleUserStatus(authStatus);
         if (authStatus) {
+          console.log(authStatus);
           history.push('/');
         }
       } catch (err) {

@@ -70,7 +70,7 @@ export default function Formcontrols() {
       if (formIsValid()) {
         console.log('Form is valid!');
         let user = await registerWithEmailAndPassword(formValues);
-        console.log(user);
+        console.log('Handle Signup', user);
         // if (user.uid) {
         //   history.push('/');
         // }
@@ -84,7 +84,7 @@ export default function Formcontrols() {
       if (formIsValid()) {
         console.log('Form is valid!');
         let user = await signInWithEmailAndPassword(formValues);
-        console.log(user);
+        console.log('Handle Login', user);
         // if (user.uid) {
         //   history.push('/');
         // }

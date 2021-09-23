@@ -119,7 +119,7 @@ function Signup(props) {
             <TextField
               autoComplete="off"
               label="Full Name"
-              name="fullname"
+              name="fullName"
               size="small"
               variant="filled"
               onChange={handleInputChange}
